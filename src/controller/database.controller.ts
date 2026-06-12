@@ -1,4 +1,5 @@
 import {prisma} from "../db/db.js"
+import { Prisma } from "@prisma/client";
 import type {Request,Response,NextFunction} from "express"
 import type { Authrequest } from "../middleware/verifyjwt.js"
 // import { connect } from "node:http2"
@@ -6,7 +7,7 @@ import { testPostgresConnection,testMysqlConnection } from "../utils/connectionT
 import { encrypt } from "../utils/encrypter.js"
 import { ApiError } from "../utils/errorHandler.js"
 import { runSchemaIngestion } from "../orchestration/schema_injestion/SI_orchestrator.js"
-
+import type { schemaIR } from "../orchestration/schema_injestion/pipeline/3_relationResolver.js"
 export const registerUser = async(req:Authrequest,res:Response,next:NextFunction)=>{
     try {
         const id = req.user?.userID
@@ -161,13 +162,13 @@ export const schema_injestion = async (req:Authrequest,res:Response,next:NextFun
     })
     if(!db) throw new ApiError("db not found",404)
     
-      const schemaIR = await runSchemaIngestion(db)
+      const schemaIR : schemaIR = await runSchemaIngestion(db)
        const updated = await prisma.database.update({
       where: {
         id: db.id
       },
       data: {
-        schemaIR,
+        schemaIR: JSON.parse(JSON.stringify(schemaIR)),
         schemaUpdatedAt: new Date()
       }
     });
@@ -184,11 +185,11 @@ export const schema_injestion = async (req:Authrequest,res:Response,next:NextFun
   }
 }
 
-export const query = async(req:Authrequest,res:Response,next:NextFunction)=>{
-  try {
+// export const query = async(req:Authrequest,res:Response,next:NextFunction)=>{
+//   try {
     
-  } catch (error) {
-    next(error)
-  }
-}
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 //next
