@@ -191,3 +191,4 @@ export const query = async(req:Authrequest,res:Response,next:NextFunction)=>{
     next(error)
   }
 }
+//next
