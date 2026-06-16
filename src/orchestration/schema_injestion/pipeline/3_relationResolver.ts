@@ -58,13 +58,28 @@ export class relation_resolver {
     }
 
     // 2. build adjacency AFTER edges are complete
+    // for (const edge of edges) {
+    //   adjacency[edge.fromTable].push({
+    //     table: edge.toTable,
+    //     via: edge.fromColumn,
+    //     targetColumn: edge.toColumn,
+    //   });
+    // }
+
     for (const edge of edges) {
-      adjacency[edge.fromTable].push({
-        table: edge.toTable,
-        via: edge.fromColumn,
-        targetColumn: edge.toColumn,
-      });
-    }
+
+  adjacency[edge.fromTable].push({
+    table: edge.toTable,
+    via: edge.fromColumn,
+    targetColumn: edge.toColumn,
+  });
+
+  adjacency[edge.toTable].push({
+    table: edge.fromTable,
+    via: edge.toColumn,
+    targetColumn: edge.fromColumn,
+  });
+}
 
     return { nodes, edges, adjacency };
   }
