@@ -15,7 +15,7 @@ import { validatorService } from "../service/validator.js";
 import { sqlGroqService } from "../service/sql_groq_service.js";
 import { planGroqService } from "../service/plan_groq_Service.js";
 import { explainGroqService } from "../service/explain_groq_Service.js";
-
+import { executor } from "../utils/executor.js";
 export const registerUser = async (req: Authrequest, res: Response, next: NextFunction) => {
   try {
     const id = req.user?.userID
@@ -324,6 +324,62 @@ console.log(mainResult.sql);
         tablesUsed : mainResult.tablesUsed
       }
     })
+
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const execute =  async(req:Authrequest,res:Response,next:NextFunction)=>{
+  try {
+  const{name,conversationName} = req.body
+  const existinguser = await prisma.user.findUnique({
+    where : {
+      auth_id : req.user!.userID
+    }
+  })    
+  const userID =  existinguser!.id
+  const existingdb = await prisma.database.findUnique({
+    where : {
+      userid_name:{
+        userid:userID,
+        name : name
+      }
+    }
+  })
+
+  const existingConversation =  await prisma.conversation.findUnique({
+    where:{
+      databaseID_name:{
+        databaseID : existingdb!.id,
+        name : conversationName
+      }
+    }
+  })
+
+  if(!existingdb || !existingConversation){
+    throw new ApiError("invalid details such db/convo may not exist",404)
+  }
+
+  const message = await prisma.message.findFirst({
+    where:{
+      conversationID : existingConversation.id
+    },
+    orderBy:{
+      createdAt:"desc"
+    }
+  })
+
+  if(!message?.generatedSQL){
+    throw new ApiError("sql doesnt exist",400)
+  }
+  let connection
+  if(existingdb.type === "POSTGRES"){
+     connection = await executor.postgresExecutor(existingdb,message!.generatedSQL)
+  }else{
+     connection = await executor.mysqlExecutor(existingdb,message!.generatedSQL)
+  }
+return res.status(200).json({connection,success:true})
 
   } catch (error) {
     next(error)
