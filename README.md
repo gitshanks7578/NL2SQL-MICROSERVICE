@@ -55,33 +55,31 @@ Prisma Database
 ## Core Pipeline
 
 ```text
-Natural Language Query
-  |
-  v
-Conversation History
-  |
-  v
-Schema Cleaner
-  |
-  v
-Context Retriever
-  |
-  v
-Prompt Builder
-  |
-  v
-LLM Service
-  |
-  v
-SQL Validator
-  |
-  v
-Generated SQL / Plan / Explanation
+User registers himself via AUTH API's accesstoken
+     │
+     ▼
+database registeration (POSTGRES/MYSQL)
+     │
+     ▼
+schema injestion - (internal pipeline 1)
+     │
+     ▼
+Prompt Builder - (internal pipeline 2)
+     │
+     ▼
+LLM
+     │
+     ▼
+SQL Validator (stops destructive queries or hallucinated tables)
+     │
+     ▼
+Generated SQL
+     │
+     ▼
+Optional Execution
 ```
 
-> Diagram placeholder: add a query generation pipeline diagram here.
-
-## Schema Ingestion Flow
+## Schema Ingestion Flow (internal pipeline 1)
 
 ```text
 Registered Database
@@ -93,7 +91,7 @@ Postgres / MySQL Extractor
 Schema Normalizer
   |
   v
-Type Mapper
+Type Mapper (to normalize datatypes of postgres/mysql)
   |
   v
 Relation Resolver
@@ -141,6 +139,22 @@ Then it converts the schema into an intermediate representation:
 ```
 
 This makes the database easier to reason about as a relationship graph.
+
+
+## Prompt builder Flow (internal pipeline 2)
+
+```text
+receives query,schema IR and history (last 5 messages)
+  |
+  v
+schema cleaner (cleans schema of the system tables)
+  |
+  v
+context retriever (retrieves relevant tables and relations)
+  |
+  v
+final prompt
+```
 
 ## Query Modes
 
