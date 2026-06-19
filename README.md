@@ -326,6 +326,7 @@ Database passwords are currently handled with a simple Base64 helper for develop
 
 - SQL validation is lightweight and regex-based.
 - Production-grade credential encryption is not implemented yet.
+- LLMs can still provide a slightly wrong query due to the INTENT problem as current architecture translates query into SQL but doesn't provide accurate INTENT for enhanced precision.
 
 ## Future Scope
 
