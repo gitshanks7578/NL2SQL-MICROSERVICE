@@ -224,7 +224,7 @@ GET /
 ## Environment Variables
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/nl2sql"
+DATABASE_URL=[connection_link]
 JWT_SECRET="your-jwt-secret"
 GROQ_API_KEY="your-groq-api-key"
 GEMINI_API_KEY="your-gemini-api-key"
@@ -304,16 +304,6 @@ prisma/
   schema.prisma
 ```
 
-## Revision Notes
-
-For interview revision, remember the project as five parts:
-
-1. **Database onboarding**: user registers a PostgreSQL or MySQL database, and the backend tests the connection.
-2. **Schema ingestion**: the backend extracts tables, columns, keys, and relationships from the live database.
-3. **Schema IR**: the raw schema is converted into nodes, edges, and adjacency lists.
-4. **Prompt pipeline**: the system cleans the schema, retrieves relevant context, adds conversation history, and calls the LLM.
-5. **Validation and execution**: generated SQL is checked before it can be executed.
-
 ## Security Note
 
 Database passwords are currently handled with a simple Base64 helper for development purposes.
@@ -321,8 +311,6 @@ Database passwords are currently handled with a simple Base64 helper for develop
 ## Current Limitations
 
 - SQL validation is lightweight and regex-based.
-- Tests are not added yet.
-- The API is documented through Postman instead of OpenAPI.
 - Production-grade credential encryption is not implemented yet.
 
 ## Future Scope
@@ -330,11 +318,6 @@ Database passwords are currently handled with a simple Base64 helper for develop
 - Stronger SQL parser-based validation
 - Real credential encryption
 - Docker setup
-- OpenAPI documentation
 - Unit and integration tests
 - Frontend dashboard
 - Support for more databases
-
-## License
-
-ISC
