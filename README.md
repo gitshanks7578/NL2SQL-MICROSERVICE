@@ -55,7 +55,7 @@ Prisma Database
 ## Core Pipeline
 
 ```text
-User registers himself via AUTH API's accesstoken
+User registers via AUTH API's accesstoken
      │
      ▼
 database registeration (POSTGRES/MYSQL)
