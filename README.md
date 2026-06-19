@@ -67,7 +67,7 @@ schema injestion - (internal pipeline 1)
 Prompt Builder - (internal pipeline 2)
      │
      ▼
-LLM
+    LLM
      │
      ▼
 SQL Validator (stops destructive queries or hallucinated tables)
