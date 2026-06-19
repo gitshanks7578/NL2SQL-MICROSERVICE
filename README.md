@@ -239,7 +239,7 @@ GET /
 
 ```env
 DATABASE_URL=[connection_link]
-JWT_SECRET="your-jwt-secret"
+JWT_SECRET=[same secret from AUTH API]
 GROQ_API_KEY="your-groq-api-key"
 GEMINI_API_KEY="your-gemini-api-key"
 PORT=3000
