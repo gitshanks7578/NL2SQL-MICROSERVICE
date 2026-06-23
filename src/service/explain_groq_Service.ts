@@ -88,7 +88,7 @@ IMPORTANT:
     try {
       const parsed = JSON.parse(text);
 
-      // 🔥 HARD SAFETY ENFORCEMENT
+    
       if (parsed.sql !== null) {
         throw new Error("EXPLAIN mode violation: SQL is not allowed");
       }
