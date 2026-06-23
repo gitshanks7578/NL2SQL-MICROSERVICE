@@ -4,15 +4,17 @@ NL2SQL is a TypeScript + Express backend that converts natural-language question
 
 The main idea is simple: before asking an LLM to generate SQL, the backend first understands the connected database schema. It extracts tables, columns, primary keys, foreign keys, and relationships, converts them into a structured schema graph, and uses that context to produce more grounded SQL responses.
 
-![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-3C873A?style=for-the-badge&logo=node.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-black?style=for-the-badge&logo=express&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-1F1F1F?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-F29111?style=for-the-badge&logo=mysql&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-0C344B?style=for-the-badge&logo=prisma&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
-![LLM](https://img.shields.io/badge/LLM_Powered-Groq_+_Gemini-purple?style=for-the-badge)
-![Architecture](https://img.shields.io/badge/Architecture-Graph_Based-blue?style=for-the-badge)
+![Groq](https://img.shields.io/badge/Groq-FF4D4D?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Gemini_API-8E75FF?style=for-the-badge&logo=google&logoColor=white)
+![LLM Pipeline](https://img.shields.io/badge/LLM_Pipeline-00C2FF?style=for-the-badge)
+![Schema_IR](https://img.shields.io/badge/Schema_IR-FF6B6B?style=for-the-badge)
 
 POSTMAN LINK - https://www.postman.com/shashanku346-9208905/workspace/nl2sql/collection/49663479-60940a90-c6f4-4c8b-acad-bab99bf9cab0?action=share&source=copy-link&creator=49663479
 
