@@ -31,6 +31,7 @@ Most LLM-based approaches:
 - Produce syntactically valid but logically incorrect SQL  
 
 This leads to queries that may look correct but fail against real databases.
+
 This API helps developers by removing the need to manually write SQL queries and instead allowing them to interact with databases using natural language, while ensuring the generated queries are schema-aware, accurate, and safely executable.
 
 ## What Makes It Interesting
