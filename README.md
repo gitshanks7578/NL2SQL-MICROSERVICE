@@ -20,6 +20,19 @@ POSTMAN LINK - https://www.postman.com/shashanku346-9208905/workspace/nl2sql/col
 
 DEPLOYED API LINK - https://nl2sql-v3pi.onrender.com/
 
+## Problem Statement
+
+Natural language to SQL systems often fail in real-world use because they do not properly understand the underlying database schema.
+
+Most LLM-based approaches:
+- Rely on incomplete or static schema context  
+- Hallucinate tables, columns, or relationships  
+- Ignore foreign key structure and joins  
+- Produce syntactically valid but logically incorrect SQL  
+
+This leads to queries that may look correct but fail against real databases.
+This API helps developers by removing the need to manually write SQL queries and instead allowing them to interact with databases using natural language, while ensuring the generated queries are schema-aware, accurate, and safely executable.
+
 ## What Makes It Interesting
 
 - Connects to real PostgreSQL and MySQL databases.
