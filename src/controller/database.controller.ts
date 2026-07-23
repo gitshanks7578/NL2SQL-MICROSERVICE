@@ -274,6 +274,8 @@ export const query = async (req: Authrequest, res: Response, next: NextFunction)
 
     const prompt = promptbuilder(schema, query, history)
     const readyPrompt = JSON.stringify(prompt, null, 2)
+
+    console.log(readyPrompt);
     let mainResult
     if (mode === "SQL"){
       mainResult = await sqlGroqService.generateSQL(readyPrompt)

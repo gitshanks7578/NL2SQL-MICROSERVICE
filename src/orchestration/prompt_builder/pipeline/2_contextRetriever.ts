@@ -1,46 +1,3 @@
-// // // console.log("hi")
-
-// // // const str = "give me post and users with comments"
-// // // const q = str.toLowerCase()
-// // // const seeds = []
-
-
-
-// // // // npx ts-node 5_contextRetriever.ts 
-
-
-
-// export class contextRetriever{
-//     public  maxDepth = 2
-//     constructor(maxDepth=2){
-//         this.maxDepth = maxDepth;
-//     }
-//     //main entry
-//     retrieve(schema:any,query:string){
-//         //get seeds
-
-//         //keep fallback ->return whole schema
-        
-//         //expand till 2 nodes
-
-//         //safety check to not lose seeds
-
-//         //pruned(final output)
-//         const q = query.toLowerCase();
-//         const seeds = [];
-
-//         for(const node of schema.nodes){
-//             const table = schema.nodes.toLowerCase()
-//             if(q.includes(node.table)){
-//                 seeds.push(node.table)
-//             }
-            
-//         }
-//      return seeds
-        
-//     }
-// }
-
 
 export interface Node {
   table: string;
@@ -73,16 +30,13 @@ export interface schemaIR{
 }
 
 export class ContextRetriever {
-    constructor(public maxDepth = 2) {
+    constructor(public maxDepth = 1) {
         this.maxDepth = maxDepth;
     }
 
-    /* -----------------------------
-        MAIN ENTRY
-    ------------------------------*/
     retrieve(query : string, schema : schemaIR)  {
         const seeds : string[] = this.getSeeds(query, schema);
-
+        console.log(seeds);
         // Fallback 1: no seeds found
         if (seeds.length === 0) {
             return this.fallback(schema);
@@ -100,10 +54,7 @@ export class ContextRetriever {
         return this.prune(schema, keep);
     }
 
-    /* -----------------------------
-        SEED DETECTION
-        (strict lexical match)
-    ------------------------------*/
+    
     getSeeds(query : string, schema : schemaIR):string[] {
         const q = query.toLowerCase();
         const seeds = [];
@@ -129,10 +80,7 @@ export class ContextRetriever {
         return [...new Set(seeds)];
     }
 
-    /* -----------------------------
-        GRAPH EXPANSION (BFS)
-        maxDepth = 2 default
-    ------------------------------*/
+    
     expand(seeds : string[], schema : schemaIR):Set<string> {
         const keep = new Set<string>(seeds);
         let frontier : string[] = [...seeds];
@@ -161,9 +109,7 @@ export class ContextRetriever {
         return keep;
     }
 
-    /* -----------------------------
-        PRUNE SCHEMA
-    ------------------------------*/
+  
     prune(schema:schemaIR, keep : Set<string>) {
         const nodes = schema.nodes.filter(n =>
             keep.has(n.table)
@@ -183,9 +129,7 @@ export class ContextRetriever {
         return { nodes, edges,adjacency };
     }
 
-    /* -----------------------------
-        FALLBACK (SAFE MODE)
-    ------------------------------*/
+   
     fallback(schema:schemaIR) {
         return {
             nodes: schema.nodes,

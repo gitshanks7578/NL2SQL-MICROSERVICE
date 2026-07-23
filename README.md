@@ -346,6 +346,7 @@ prisma/
   schema.prisma
 ```
 
+
 ## Security Note
 
 Database passwords are currently handled with a simple Base64 helper for development purposes.
